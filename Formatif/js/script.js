@@ -41,19 +41,22 @@ function insert_Row(month, index){
     var show = document.createElement("button");
     show.innerHTML = "Afficher";
     show.classList.add("btn", "btn-primary", "btn-sm", "mr-1");
-    show.addEventListener("click", $event => {
-
+    show.addEventListener("click", function() {
+      alert(month.days);
     });
-    var deleteLigne = document.createElement("button");
-    deleteLigne.innerHTML = "Supprimer";
-    deleteLigne.classList.add("btn", "btn-danger", "btn-sm");
-    deleteLigne.addEventListener("click", $event => {
-      
+    var deleteLine = document.createElement("button");
+    deleteLine.innerHTML = "Supprimer";
+    deleteLine.classList.add("btn", "btn-danger", "btn-sm");
+    deleteLine.addEventListener("click", function() {
+      delLine(month.name);
     });
 
     buttons.appendChild(show);
-    buttons.appendChild(deleteLigne);
+    buttons.appendChild(deleteLine);
 
 }
 
-//                <button class="" onclick="deleteRow()">Supprimer</button>
+function delLine(monthName){
+    document.getElementById(monthName).remove();
+
+}
