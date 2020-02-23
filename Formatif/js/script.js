@@ -42,7 +42,7 @@ function insert_Row(month, index){
     show.innerHTML = "Afficher";
     show.classList.add("btn", "btn-primary", "btn-sm", "mr-1");
     show.addEventListener("click", function() {
-      alert(month.days);
+      alert("Il y a " +month.days+" jours");
     });
     var deleteLine = document.createElement("button");
     deleteLine.innerHTML = "Supprimer";

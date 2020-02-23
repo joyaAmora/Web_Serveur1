@@ -1,0 +1,33 @@
+<<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
+        title Laboratoire 2
+    body
+    h1 Liste des tâches
+    table(class="table")
+        thead(class="thead-dark")
+            tr
+                th(scope="col") #
+                th(scope="col") Titre
+                th(scope="col") Description
+                th(scope="col") Actions
+        tbody
+            each task, index in tasks
+            tr
+                td(scope="row")= index
+                td= task.title
+                td= task.description
+                td
+            tr
+                td
+                form(action="/" method="POST")
+                    div(class="form-group")
+                        td
+                            input(type="text", class="form-control", placeholder = "titre" name = "title")
+                        td
+                            input(type="text", class="form-control", placeholder = "description" name = "description")
+                        td
+                            input(type="submit", class="btn, btn-primary" value="ajouter")
