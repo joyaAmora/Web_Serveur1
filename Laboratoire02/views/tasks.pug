@@ -11,18 +11,16 @@ block content
         th(scope="col") Actions
     tbody
       each task, index in tasks
-        tr
-          th(scope="row")= index
-          td= task.title
-          td= task.description
-          td
+        include includes/tasks
+      tr
+        td(scope="row")
       tr
         td
         form(action="/tasks" method="POST")
           div(class="form-group")
             td
-              input(type="text" class="form-control" placeholder="Titre" name="title")
+              input(type="text" class="form-control" placeholder="Titre" name="title" id="title")
             td
-              input(type="text" class="form-control" placeholder="Description" name="description") 
+              input(type="text" class="form-control" placeholder="Description" name="description" id="desc") 
             td
-              input(type="submit" class="btn btn-primary" value="Ajouter")
+              input(type="submit" class="btn btn-primary" value="Ajouter" id="add")

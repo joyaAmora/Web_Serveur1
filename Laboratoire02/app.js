@@ -3,6 +3,7 @@ const fs = require('fs')
 const express = require ('express')
 const app = express()
 const bodyParser = require('body-parser')
+const routes = require("./routes")
 
 //Configurer le 'body-parser'
 app.use(bodyParser.urlencoded({extended:true}))
@@ -11,8 +12,8 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.set('view engine', 'pug')
 
 var tasks = [
-  { title: "Balayeuse", description: "Passer la balayeuse demain" },
-  { title: "Plancher", description: "Laver le plancher ce soir" }
+  { id: 0, title: "Balayeuse", description: "Passer la balayeuse demain" },
+  { id: 1, title: "Plancher", description: "Laver le plancher ce soir" }
 ];
 
 //Utiliser Express pour trapper des routes spécifiques
@@ -24,10 +25,10 @@ app.get('/', (req, res) => {
   res.render('home')
 })
 
-const loadNotes = () => {
+const loadtasks = () => {
 
   try{
-      const dataBuffer = fs.readFileSync('notes.json')
+      const dataBuffer = fs.readFileSync('./data/tasks.json')
       const dataJSON = dataBuffer.toString()
       return JSON.parse(dataJSON)
   }
@@ -36,26 +37,27 @@ const loadNotes = () => {
   }
 }
 
-  const saveNotes = (tasks) => {
+  const savetasks = (tasks) => {
     const dataJSON = JSON.stringify(tasks)
-    fs.writeFileSync('notes.json', dataJSON)
+    fs.writeFileSync('./data/tasks.json', dataJSON)
 }
   
-const addNotes = (title, body) =>{
-  const notes = loadNotes()
-  notes.push({
+const addtasks = (id, title, body) =>{
+  const tasks = loadtasks()
+  tasks.push({
+    id,
     title: title,
     body: body
 })
-saveNotes(notes)
+savetasks(tasks)
 }
 
 //Lancer le serveur
 app.post('/tasks', ({body}, res) => {
-    const newTask = { title: body.title, description: body.description }
+    const newTask = { id: body.id, title: body.title, description: body.description }
     tasks.push(newTask)
     res.redirect('/tasks')
-    addNotes(body.title, body.description)
+    addtasks(body.id, body.title, body.description)
 })
 
 

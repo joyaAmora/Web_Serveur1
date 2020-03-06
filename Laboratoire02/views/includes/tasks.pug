@@ -1,0 +1,6 @@
+tr(id=task.id)
+    th= task.id
+    td= task.title
+    td= task.description
+    td
+        input(type="button" class="btn btn-outline-danger" value="Supprimer" id="deleteButton"+task.id)

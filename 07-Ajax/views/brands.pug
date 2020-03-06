@@ -1,0 +1,10 @@
+extends layouts/main
+
+block content
+  script(src="./javascripts/brands.js")
+  h1 Liste des marques de voiture
+  ul#brandList
+    for brand in brands
+      include includes/brand
+  input(id="brandInput" placeholder="Nom de la marque")
+  button(id="addButton") Ajouter
