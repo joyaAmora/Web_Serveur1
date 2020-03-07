@@ -1,0 +1,12 @@
+extends layouts/main
+
+block content
+    script(src="js/brands.js")
+    h1 Liste des marques
+    if brands
+    ul(id="ulId")
+        for brand in brands
+            include includes/brand
+    input(id='brandInput' placeholder="marque a ajouter")
+    button(id='sendButton') Send
+    //identique a button#sendButton

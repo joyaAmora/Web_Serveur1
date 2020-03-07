@@ -15,3 +15,10 @@ window.addEventListener("DOMContentLoaded", event => {
     });
   });
   
+
+
+
+  axios.post("/tasks",{title:title.value, body:description.value})
+  .then(response)
+
+  axios.delete()
