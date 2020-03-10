@@ -1,6 +1,7 @@
-extends layouts/main.pug
+extends layouts/main
 
 block content
+  script(src="js/tasks.js")
   h1(class="pb-4 pt-2") Liste des tâches
   table(class="table")
     thead(class="thead-dark")
@@ -11,10 +12,8 @@ block content
         th(scope="col") Actions
     tbody
       each task, index in tasks
-        include includes/tasks
-      tr
-        td(scope="row")
-      tr
+        include includes/task
+      tr(id="rowId")
         td
         form(action="/tasks" method="POST")
           div(class="form-group")
