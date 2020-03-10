@@ -1,15 +1,10 @@
+//CRUD UNIQUEMENT pas de req, res
+
 const fs = require('fs')
-let tasks = [{ id: 0, title: "Balayeuse", description: "Passer la balayeuse demain" }, 
-             { id: 1, title: "Plancher", description: "Laver le plancher ce soir" }];
-let newId = 2
+ let tasks= []
+ const newId = 0;
 
-
-exports.init = async (req, res) =>{
-    res.render('tasks', { tasks }) //puisqu'on a aucun paramètre
-}
-
-
-const loadtasks = () => {
+ const loadtasks = () => {
 
     try{
         const dataBuffer = fs.readFileSync('./data/tasks.json')
@@ -20,41 +15,26 @@ const loadtasks = () => {
         return []
     }
   }
-  
-  const savetasks = (tasks) => {
-      const dataJSON = JSON.stringify(tasks)
-      fs.writeFileSync('./data/tasks.json', dataJSON)
-  }
-    
-  exports.addtasks = async (req, res) =>{
-   // const tasks = loadtasks()
-    tasks.push({
-      id: newId,
-      title: req.body.title,
-      body: req.body.description
-    })
-  savetasks(tasks)
-        // const newTask = { 
-        //   id: newId,
-        //   title:req.body.title, 
-        //   description:req.body.description
-        // }
-        //tasks.push(newTask)
-        
-        //res.render("includes/task", { task: newTask })
-        res.redirect('/tasks')
-        newId++
-        
+
+  exports.listTasks = () => {
+      tasks = loadtasks()
+      return tasks
   }
 
-  exports.deletetask = async (req, res) => {
-    delete tasks[req.body.id] // delete coté serveur
-    res.send('supprimer une tâche')
-  }
+ exports.addtask= (title, description) => {
+     //ajouter les taches
+     tasks = loadtasks()
+     const newTask = {
+        id: newId++,
+        title: title,
+        body: description
+     }
+     tasks.push(newTask) // ajoute a la fin doit ajouter au début trouver comment
+    // ajouter savetasks ici
+     return newTask
+ }
 
-//   app.post('/tasks', ({body}, res) => {
-//     const newTask = { id: body.id, title: body.title, description: body.description }
-//     tasks.push(newTask)
-//     res.redirect('/tasks')
-//     addtasks(body.id, body.title, body.description)
-// })
+ const savetasks = (tasks) => {
+    const dataJSON = JSON.stringify(tasks)
+    fs.writeFileSync('./data/tasks.json', dataJSON)
+}

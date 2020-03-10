@@ -1,18 +1,22 @@
 const router = require("express").Router();
-const {init, addtasks, deletetask} = require("../data/tasks")
+const taskManager = require("../data/tasks")
 
-let tasks = [{ id: 0, title: "Balayeuse", description: "Passer la balayeuse demain" }, 
-             { id: 1, title: "Plancher", description: "Laver le plancher ce soir" }];
-//let newId = 2
 
-    router.get('/', init)
+    router.get('/', (req, res) => {
+        res.render("tasks", { tasks: taskManager.listTasks() })
+    })
 
-    router.post('/', addtasks)
+
+    router.post('/', (req, res) => { //back end a reçu le post
+        taskManager.addtask(req.body.title, req.body.description)
+        res.redirect('/tasks')
+        //res.render("includes/brand", { brand: newBrand })
+    })
     // router.post('/', (req, res) =>{
     
     //     const newTask = { 
     //       id: newId,
-    //       title:req.body.title, 
+    //       title: req.body.title, 
     //       description:req.body.description
     //     }
     //     tasks.push(newTask)
@@ -20,7 +24,7 @@ let tasks = [{ id: 0, title: "Balayeuse", description: "Passer la balayeuse dema
     //     newId++
     // })
     
-    router.delete('/', deletetask)
+    //router.delete('/', deletetask)
     // router.delete('/', (req, res) =>{   
     //     delete tasks[req.body.id] // delete coté serveur
     //     res.send('supprimer une tâche')
