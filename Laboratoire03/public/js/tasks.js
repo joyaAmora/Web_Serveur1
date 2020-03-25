@@ -5,13 +5,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
   const deleteButtons = document.querySelectorAll('.delButton')
 
   sendButton.addEventListener('click', (e) => {
-    console.log(title.value, description.value)
-      axios.post('/tasks', {
+      axios.post('/tasks', { data: {
           title: title.value,
-          description: description.value
-        })
-        .then(function (response) {
-          //rowTask.insertAdjacentHTML("beforebegin", response.data)
+          description: description.value}
         })
         .catch(function (error) {
           console.log(error);
@@ -20,13 +16,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 
   deleteButtons.forEach(el => el.addEventListener('click', (e) => {
-    console.log('delete')
-        axios.delete('/tasks', {
-        id: e.srcElement.parentNode.parentNode.id //id de l'élément tr en passant de l'événement, bouton, td, tr
-
+        axios.delete('/tasks', { data: {
+          id: e.srcElement.parentNode.parentNode.id //id de l'élément tr en passant de l'événement, bouton, td, tr
+        }
       })
       .then(function (response) {
-          deleteButtons.parentNode.parentNode.remove() // delete côté visuel
+        const row = document.getElementById(response.data.id)
+        row.remove() // delete côté visuel
       })
       .catch(function (error) {
         console.log(error);
